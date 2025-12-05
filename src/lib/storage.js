@@ -4,7 +4,7 @@ import defaultProject from './default-project';
 
 /**
  * Wrapper for ScratchStorage which adds default web sources.
- * @todo make this more configurable
+ * AIBOROT: 로컬 에셋 사용 (GitHub Pages에서 호스팅)
  */
 class Storage extends ScratchStorage {
     constructor () {
@@ -56,17 +56,15 @@ class Storage extends ScratchStorage {
         };
     }
     setAssetHost (assetHost) {
+        // AIBOROT: assetHost 무시하고 로컬 에셋 사용
         this.assetHost = assetHost;
     }
     getAssetGetConfig (asset) {
-        return `${this.assetHost}/internalapi/asset/${asset.assetId}.${asset.dataFormat}/get/`;
+        // AIBOROT: 로컬 에셋 경로 사용
+        return `static/library-assets/${asset.assetId}.${asset.dataFormat}`;
     }
     getAssetCreateConfig (asset) {
         return {
-            // There is no such thing as updating assets, but storage assumes it
-            // should update if there is an assetId, and the asset store uses the
-            // assetId as part of the create URI. So, force the method to POST.
-            // Then when storage finds this config to use for the "update", still POSTs
             method: 'post',
             url: `${this.assetHost}/${asset.assetId}.${asset.dataFormat}`,
             withCredentials: true

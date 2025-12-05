@@ -105,8 +105,9 @@ class LibraryItem extends React.PureComponent {
     }
     render () {
         const iconMd5 = this.curIconMd5();
+        // AIBOROT: 로컬 에셋 경로 사용
         const iconURL = iconMd5 ?
-            `https://cdn.assets.scratch.mit.edu/internalapi/asset/${iconMd5}/get/` :
+            `static/library-assets/${iconMd5}` :
             this.props.iconRawURL;
         return (
             <LibraryItemComponent
